@@ -27,9 +27,24 @@ scanfS:  LDX     strlen,i
          STBYTEA 0,sxf
          ADDSP   4,i         ;#a 
          RET0
-scanfE:  NOP1                ;si superieur a strlen
-charTab: .BLOCK  10          ;#1c10a
+scanfE:  LDX     0,i         ;si superieur a strlen
+         CALL    scanfSu1
+         STBYTEA 3,sx
+         ADDX    3,i
+scanfE2: CALL    scanfSu1
+         ADDX    6,i
+         STBYTEA 0,sx
+         LDA     -3,sx
+         ADDA    1,i
+         CPA     strlen,i
+         BRNE    scanfE2
+         ADDSP   4,i         ;#a
+         RET0
+scanfSu1:LDA     0,i
+         LDBYTEA '\n',i
+         RET0
+charTab: .BLOCK  6          ;#1c6a
 char:    .BLOCK  1           ;#1d 
 a:       .EQUATE 0           ;#1d4a
-strlen:  .EQUATE 10
+strlen:  .EQUATE 6
          .END
