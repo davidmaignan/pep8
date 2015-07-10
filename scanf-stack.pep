@@ -1,7 +1,7 @@
          CALL    Main
          STOP
 Main:    NOP1
-         LDA     10,i
+         LDA     strlen,i
          CALL    scanf  
          RET0
 scanf:   SUBSP   4,i         ;#a  
@@ -17,7 +17,7 @@ scanf:   SUBSP   4,i         ;#a
          BREQ    scanfS
          LDA     0,s
          CALL    scanf
-scanfS:  LDX     10,i
+scanfS:  LDX     strlen,i
          SUBX    0,s
          ADDX    -1,i
          LDA     charTab,i
@@ -27,8 +27,9 @@ scanfS:  LDX     10,i
          STBYTEA 0,sxf
          ADDSP   4,i         ;#a 
          RET0
-scanfE:  NOP1
+scanfE:  NOP1                ;si superieur a strlen
 charTab: .BLOCK  10          ;#1c10a
 char:    .BLOCK  1           ;#1d 
 a:       .EQUATE 0           ;#1d4a
+strlen:  .EQUATE 10
          .END
