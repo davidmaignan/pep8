@@ -43,8 +43,12 @@ scanfE2: CALL    scanfSu1
 scanfSu1:LDA     0,i
          LDBYTEA '\n',i
          RET0
-charTab: .BLOCK  6          ;#1c6a
-char:    .BLOCK  1           ;#1d 
+;-------------------------------
+; variable globales:
+; tableau pour contenir chaine de characteres
+; taille maximale de la chaine
+;-------------------------------
+charTab: .BLOCK  20          ;#1c20a
 a:       .EQUATE 0           ;#1d4a
-strlen:  .EQUATE 6
+strlen:  .EQUATE 20
          .END
