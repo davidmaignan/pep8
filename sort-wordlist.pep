@@ -7,6 +7,15 @@ MAIN:    CALL    LD_NEXT
          LDA     -1,i        
          STA     0,x  
 
+;debug
+         LDA     start,d
+         LDX     start,d
+         LDA     0,x
+         STA     -2,s
+         LDA     -2,sf
+         STA     -4,s
+         LDA     -4,sx
+
 ;Sort (bubble) linkList 
 WH_ST_1: LDA     continue,d
          CPA     0,i
@@ -18,11 +27,13 @@ WH_ST_2: CALL    COMPARE
          STA     where,d
 
 ;last node - 
+         LDA     where,d
          LDX     where,d
          LDA     0,x
          CPA     -1,i
          BREQ    WH_ST_1
 
+         LDA     where,d     ;reload where b4 compare call
          BR      WH_ST_2
 
 ;Print list
@@ -128,6 +139,7 @@ CP_E1:   LDA     resultat,s
          CPA     start,d         
 
 CP_E11:  LDA     addr1,s
+         ADDSP   12,i         ;#char2 #char1 #resultat #compteur #addr2 #addr1
          RET0
          
 CP_E2:   LDA     addr2,s
